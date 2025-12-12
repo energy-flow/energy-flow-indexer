@@ -1,1 +1,3 @@
-import { ponder } from "ponder:registry";
+import "./PricingDAO";
+import "./EFT";
+import "./AaveVault";
