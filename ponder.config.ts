@@ -27,6 +27,12 @@ const network = isLocal ? "hardhat" : "sepolia";
 const addr = addresses[network];
 
 export default createConfig({
+  database: process.env.DATABASE_URL
+    ? {
+        kind: "postgres",
+        connectionString: process.env.DATABASE_URL,
+      }
+    : undefined, // PGlite local default
   chains: {
     [network]: {
       id: isLocal ? 31337 : 11155111,
