@@ -37,6 +37,7 @@ export const eftEvent = onchainTable("eft_event", (t) => ({
 export const aaveVaultEvent = onchainTable("aave_vault_event", (t) => ({
   id: t.text().primaryKey(),
   type: t.text().notNull(),
+  depositor: t.hex().notNull(),
   amount: t.bigint().notNull(),
   blockNumber: t.bigint().notNull(),
   txHash: t.hex().notNull(),

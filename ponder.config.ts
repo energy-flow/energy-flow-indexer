@@ -5,31 +5,52 @@ import { PricingDAOAbi } from "./abis/PricingDAOAbi";
 import { EFTAbi } from "./abis/EFTAbi";
 import { AaveVaultAbi } from "./abis/AaveVaultAbi";
 
+const isLocal = process.env.PONDER_CHAIN !== "sepolia";
+
+// Contract addresses per network
+const addresses = {
+  hardhat: {
+    PricingDAO: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    EFT: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    AaveVault: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+    fromBlock: 0
+  },
+  sepolia: {
+    PricingDAO: "0x5325677B41090e00067807465B927B5cB13580Ce",
+    EFT: "0xBEeb8a8b5a3F1C206b47907432c82Ecec9d99A84",
+    AaveVault: "0x41c131B337c57bf08eBeb384bc498E40E3351A79",
+    fromBlock: 9832999
+  },
+};
+
+const network = isLocal ? "hardhat" : "sepolia";
+const addr = addresses[network];
+
 export default createConfig({
   chains: {
-    sepolia: {
-      id: 11155111,
-      rpc: process.env.PONDER_RPC_URL_11155111,
-    },
+    [network]: {
+      id: isLocal ? 31337 : 11155111,
+      rpc: isLocal ? process.env.PONDER_RPC_URL_31337 : process.env.PONDER_RPC_URL_11155111,
+    }
   },
   contracts: {
     PricingDAO: {
-      chain: "sepolia",
+      chain: network,
       abi: PricingDAOAbi,
-      address: "0x84C41DEe19DeB10420621fD25887874B58735400",
-      startBlock: 9819937,
+      address: addr.PricingDAO,
+      startBlock: addr.fromBlock,
     },
     EFT: {
-      chain: "sepolia",
+      chain: network,
       abi: EFTAbi,
-      address: "0xc5868984c142AB55Aa8928982bA8Ac313500EF01",
-      startBlock: 9819937,
+      address: addr.EFT,
+      startBlock: addr.fromBlock,
     },
     AaveVault: {
-      chain: "sepolia",
+      chain: network,
       abi: AaveVaultAbi,
-      address: "0xA856134BE466e248c0d3865CAd1737580897477D",
-      startBlock: 9819937,
+      address: addr.AaveVault,
+      startBlock: addr.fromBlock,
     },
   },
 });
