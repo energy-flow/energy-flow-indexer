@@ -5,6 +5,9 @@ import { PricingDAOAbi } from "./abis/PricingDAOAbi";
 import { EFTAbi } from "./abis/EFTAbi";
 import { AaveVaultAbi } from "./abis/AaveVaultAbi";
 
+console.log("PONDER_CHAIN:", process.env.PONDER_CHAIN);
+console.log("DATABASE_URL:", process.env.DATABASE_URL ? "SET" : "NOT SET");
+
 const isLocal = process.env.PONDER_CHAIN !== "sepolia";
 
 // Contract addresses per network
