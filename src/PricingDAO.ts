@@ -13,9 +13,7 @@ ponder.on("PricingDAO:MemberAdded", async ({ event, context }) => {
 });
 
 ponder.on("PricingDAO:MemberRemoved", async ({ event, context }) => {
-  await context.db
-    .delete(member)
-    .where({ address: event.args.member });
+  await context.db.delete(member, { address: event.args.member });
 });
 
 ponder.on("PricingDAO:ProposalCreated", async ({ event, context }) => {
